@@ -23,7 +23,7 @@ COPY update_repository.sh /
 
 # Create a local user for building since aur tools should be run as normal user.
 RUN \
-    pacman -S --noconfirm sudo && \
+    pacman -S --noconfirm sudo git && \
     groupadd builder && \
     useradd -m -g builder builder && \
     echo 'builder ALL = NOPASSWD: ALL' > /etc/sudoers.d/builder_pacman
