@@ -23,7 +23,7 @@ fi
 
 git clone https://aur.archlinux.org/yay-bin.git
 cd yay-bin
-makepkg -si
+makepkg -si --noconfirm
 cd ..
 
 # Add the packages to the local repository.
