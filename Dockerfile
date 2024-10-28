@@ -58,6 +58,7 @@ RUN \
     echo "[archlinuxcn]" >> /etc/pacman.conf && \
     echo "Server = https://repo.archlinuxcn.org/\$arch" >> /etc/pacman.conf && \
     pacman -Sy && \
-    pacman -S --noconfirm archlinuxcn-keyring
+    pacman -S --noconfirm archlinuxcn-keyring && \
+    pacman -Syu --noconfirm
 
 CMD ["/update_repository.sh"]
