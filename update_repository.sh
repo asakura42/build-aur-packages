@@ -24,6 +24,12 @@ if ! pacman -Qi pacman-contrib > /dev/null 2>&1; then
     sudo pacman -S --noconfirm pacman-contrib
 fi
 
+git clone https://aur.archlinux.org/yay-bin.git && \
+    cd yay-bin && \
+    makepkg -si --noconfirm && \
+    cd .. && \
+    rm -rf yay-bin
+
 # Install any additional missing Pacman dependencies, if specified
 if [ -n "$INPUT_MISSING_PACMAN_DEPENDENCIES" ]; then
     echo "Additional Pacman packages to install: $INPUT_MISSING_PACMAN_DEPENDENCIES"
