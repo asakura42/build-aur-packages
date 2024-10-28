@@ -51,6 +51,10 @@ RUN \
     echo "# local repository (required by aur tools to be set up)" >> /etc/pacman.conf && \
     echo "[aurci2]" >> /etc/pacman.conf && \
     echo "SigLevel = Optional TrustAll" >> /etc/pacman.conf && \
-    echo "Server = file:///home/builder/workspace" >> /etc/pacman.conf
+    echo "Server = file:///home/builder/workspace" >> /etc/pacman.conf && \
+    echo "[archlinuxcn]" >> /etc/pacman.conf && \
+    echo 'Server = https://repo.archlinuxcn.org/$arch' >> /etc/pacman.conf && \
+    pacman -Sy && \
+    pacman -S archlinuxcn-keyring
 
 CMD ["/update_repository.sh"]
