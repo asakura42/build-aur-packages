@@ -56,7 +56,7 @@ RUN \
     echo "SigLevel = Optional TrustAll" >> /etc/pacman.conf && \
     echo "Server = file:///home/builder/workspace" >> /etc/pacman.conf && \
     echo "[archlinuxcn]" >> /etc/pacman.conf && \
-    echo 'Server = https://repo.archlinuxcn.org/$arch' >> /etc/pacman.conf && \
+    echo "Server = https://repo.archlinuxcn.org/\$arch" >> /etc/pacman.conf && \
     pacman -Sy && \
     pacman -S archlinuxcn-keyring
 
