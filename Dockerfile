@@ -10,6 +10,9 @@ RUN pacman -Syu --noconfirm base-devel
 # https://www.reddit.com/r/archlinux/comments/6qu4jt/how_to_run_makepkg_in_docker_container_yes_as_root/
 RUN sed -i 's,exit $E_ROOT,echo but you know what you do,' /usr/bin/makepkg
 
+# Sometimes shit happens and this creepy line... well...
+RUN sed -i 's/SKIPPGPCHECK=0/SKIPPGPCHECK=1/' /usr/bin/makepkg
+
 # Add the gpg key for 6BC26A17B9B7018A.
 # This should not be necessary.  It should be possible to use
 #     gpg --recv-keys --keyserver pgp.mit.edu 6BC26A17B9B7018A
