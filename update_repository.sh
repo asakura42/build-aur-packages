@@ -18,13 +18,18 @@ pacman -Sy
 if [ -n "$INPUT_MISSING_PACMAN_DEPENDENCIES" ]
 then
     echo "Additional Pacman packages to install: $INPUT_MISSING_PACMAN_DEPENDENCIES"
-    pacman --noconfirm -S $INPUT_MISSING_PACMAN_DEPENDENCIES
+    pacman --noconfirm -S git base-devel $INPUT_MISSING_PACMAN_DEPENDENCIES
 fi
+
+git clone https://aur.archlinux.org/yay-bin.git
+cd yay-bin
+makepkg -si
+cd ..
 
 # Add the packages to the local repository.
 sudo --user builder \
-    aur sync \
-    --noconfirm --noview \
+    yay -S \
+    --noconfirm \
     --database aurci2 --root /home/builder/workspace \
     $packages_with_aur_dependencies
 
