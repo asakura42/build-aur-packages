@@ -28,22 +28,19 @@ RUN \
     useradd -m -g builder builder && \
     echo 'builder ALL = NOPASSWD: ALL' > /etc/sudoers.d/builder_pacman
 
-
-USER builder
-
-# Build aurutils as unprivileged user.
-RUN git clone https://aur.archlinux.org/yay-bin.git && \
-    cd yay-bin && \
-    makepkg -si --noconfirm && \
-    cd .. && \
-    rm -rf yay-bin
-
 USER root
 # Note: Github actions require the dockerfile to be run as root, so do not
 #       switch back to the unprivileged user.
 #       Use `sudo --user <user> <command>` to run a command as this user.
 
 # Register the local repository with pacman.
+
+RUN git clone https://aur.archlinux.org/yay-bin.git && \
+    cd yay-bin && \
+    makepkg -si --noconfirm && \
+    cd .. && \
+    rm -rf yay-bin
+
 RUN \
     echo "# local repository (required by aur tools to be set up)" >> /etc/pacman.conf && \
     echo "[aurci2]" >> /etc/pacman.conf && \
