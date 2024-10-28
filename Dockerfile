@@ -32,17 +32,11 @@ RUN \
 USER builder
 
 # Build aurutils as unprivileged user.
-RUN \
-    gpg --import /tmp/gpg_key_6BC26A17B9B7018A.gpg.asc && \
-    cd /tmp/ && \
-    curl --output aurutils.tar.gz https://aur.archlinux.org/cgit/aur.git/snapshot/aurutils.tar.gz && \
-    tar xf aurutils.tar.gz && \
-    cd aurutils && \
-    makepkg --syncdeps --noconfirm && \
-    sudo pacman -U --noconfirm aurutils-*.pkg.tar.zst && \
-    mkdir /home/builder/workspace && \
-    cp /tmp/aurutils/aurutils-*.pkg.tar.zst /home/builder/workspace/ && \
-    repo-add /home/builder/workspace/aurci2.db.tar.gz /home/builder/workspace/aurutils-*.pkg.tar.zst
+RUN git clone https://aur.archlinux.org/yay-bin.git && \
+    cd yay-bin && \
+    makepkg -si --noconfirm && \
+    cd .. && \
+    rm -rf yay-bin
 
 USER root
 # Note: Github actions require the dockerfile to be run as root, so do not
